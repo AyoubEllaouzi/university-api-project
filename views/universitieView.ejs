@@ -1,0 +1,46 @@
+<!-- views/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Data</title>
+    <link rel="stylesheet" href="./style.css"> <!-- Corrected path to CSS file -->
+</head>
+<body>
+    <h1>University Website</h1>
+    <div class="search">
+        <form action="/search" method="GET"> <!-- Corrected action attribute -->
+            <input class="search-input" type="text" name="searchTerm" placeholder="Search university">
+            <button class="button-20" type="submit">Search</button> <!-- Corrected button type -->
+        </form>
+    </div>
+    <div class="data-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Website</th>
+                    <th>Domains</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(const university of universities) { %> <!-- Assuming 'universities' is the data variable passed from server -->
+                    <tr>
+                        <td><%= university.name %></td>
+                        <td><%= university.country %></td>
+                        <td>
+                            <% if (university.web_pages && university.web_pages.length > 0) { %>
+                                <a href="<%= university.web_pages[0] %>" target="_blank"><%= university.web_pages[0] %></a>
+                            <% } %>
+                        </td>
+                        <td><%= university.domains.join(', ') %></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
